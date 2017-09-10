@@ -29,7 +29,7 @@ public class AlienDicBFS {
             for (int j = 0; j < words[i].length(); j++) {
                 char c = words[i].charAt(j);
                 if (!graph.containsKey(c)) {
-                    graph.put(c, new HashSet<Character>()); // 为了排序结果出现所有字母，对于每个字母，都要初始化，
+                    graph.put(c, new HashSet<>()); // 为了排序结果出现所有字母，对于每个字母，都要初始化，
                     indegree.put(c, 0);
                 }
             }

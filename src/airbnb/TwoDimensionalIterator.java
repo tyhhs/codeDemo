@@ -1,6 +1,9 @@
 package airbnb;
 
+import airbnb.struct.Interval;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,31 +17,22 @@ import java.util.List;
 public class TwoDimensionalIterator {
     public static void main(String[] args){
         List<List<Integer>> array = new ArrayList<>();
-    }
-
-    public class ListIterator1{
-        List<Iterator<Integer>> iterList;
-        int curr;
-        public ListIterator1(List<List<Integer>> array) {
-            this.iterList = new ArrayList<>();
-            for(List<Integer> list : array){
-                if(list.size() != 0){
-                    this.iterList.add(list.iterator());
-                }
+        array.add(new ArrayList(Arrays.asList(1,3,4)));
+        array.add(new ArrayList(Arrays.asList(2,3)));
+        array.add(new ArrayList(Arrays.asList(10)));
+        ListIterator3 iterator1 = new ListIterator3(array);
+        while(iterator1.hasNext()){
+            int i = iterator1.next();
+            System.out.println(i);
+            if(i == 3){
+                iterator1.remove();
             }
-            this.curr = 0;
         }
-
-        public boolean hasNext(){
-            return curr < iterList.size() && iterList.get(curr).hasNext();
-        }
-
-        public int next(){
-            int res = iterList.get(curr).next();
-            if(!iterList.get(curr).hasNext()){
-                curr++;
+        System.out.println("#############");
+        for(List<Integer> list :array){
+            for(int i : list){
+                System.out.println(i);
             }
-            return res;
         }
     }
 }
