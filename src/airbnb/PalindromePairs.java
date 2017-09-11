@@ -7,8 +7,14 @@ import java.util.*;
  */
 public class PalindromePairs {
     public static void main(String[] args) {
-        String[] words = new String[]{"abcd","dcba","lls","s","sssll", ""};
-        palindromePairs(words);
+        String[] words = new String[]{"abcd","dcba","lls","s","sssll"};
+        List<List<Integer>> res = palindromePairs(words);
+        for(List<Integer> list : res){
+            for(int i : list){
+                System.out.print(words[i] + " ");
+            }
+            System.out.println();
+        }
     }
     public static List<List<Integer>> palindromePairs(String[] words) {
         List<List<Integer>> res = new ArrayList<>();
@@ -40,7 +46,7 @@ public class PalindromePairs {
                 }
             }
             //case 3
-            for(int j = 1; j <= word.length(); j++){
+            for(int j = 1; j < word.length(); j++){
                 String left = word.substring(0, j);
                 String right = word.substring(j);
                 if(isPalindrome(left)){

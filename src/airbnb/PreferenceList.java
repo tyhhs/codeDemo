@@ -33,21 +33,20 @@ public class PreferenceList {
         Map<Integer, Integer> in = new HashMap<>();
         //初始化图
         for(List<Integer> list : preference){
+            //保证每个点都在map中
+            if(!map.containsKey(list.get(0))){
+                map.put(list.get(0), new HashSet<>());
+                in.put(list.get(0), 0);
+            }
             for(int i = 1; i < list.size(); i++){
                 int node = list.get(i);
                 int preNode = list.get(i-1);
-                //保证每个点都在入度map中
-                if(!in.containsKey(node)){
+                //保证每个点都在map中
+                if(!map.containsKey(node)){
+                    map.put(node, new HashSet<>());
                     in.put(node, 0);
                 }
-                if(!in.containsKey(preNode)){
-                    in.put(preNode, 0);
-                }
                 Set<Integer> set = map.get(preNode);
-                if(set == null){
-                    set = new HashSet<>();
-                    map.put(preNode, set);
-                }
                 if(!set.contains(node)){
                     set.add(node);
                     in.put(node, in.get(node) + 1);
@@ -63,19 +62,17 @@ public class PreferenceList {
         while(!queue.isEmpty()){
             int node = queue.poll();
             res.add(node);
-            Set<Integer> nextNodes = map.get(node);
             //减少所有连接点的入度，并将入度为0的点加入到queue
-            if(nextNodes == null || nextNodes.size() == 0){
-                continue;
-            }
-            for(int i : nextNodes){
-                int indegree = in.get(i);
-                indegree--;
-                if(indegree == 0){
+            for(int i : map.get(node)){
+                int degree = in.get(i) - 1;
+                in.put(i, degree);
+                if(degree == 0){
                     queue.offer(i);
                 }
-                in.put(i, indegree);
             }
+        }
+        if(res.size() != in.size()){
+            return null;
         }
         return res;
     }

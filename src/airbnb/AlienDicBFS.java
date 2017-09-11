@@ -21,7 +21,9 @@ public class AlienDicBFS {
         System.out.println(sorted);
     }
     public static String alienOrder(String[] words) {
+        //表示图
         Map<Character, Set<Character>> graph = new HashMap<>();
+        //表示入度
         Map<Character, Integer> indegree = new HashMap<>();
         StringBuilder sb = new StringBuilder();
         //build graph

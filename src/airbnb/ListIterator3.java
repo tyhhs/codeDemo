@@ -22,11 +22,9 @@ public class ListIterator3 {
         if (array == null || array.isEmpty()) {
             return false;
         }
-
         while (rowId < numRows && (array.get(rowId) == null || array.get(rowId).isEmpty())) {
             rowId++;
         }
-
         return rowId < numRows;
     }
 
@@ -37,7 +35,6 @@ public class ListIterator3 {
             rowId++;
             colId = 0;
         }
-
         return ret;
     }
 
@@ -59,13 +56,11 @@ public class ListIterator3 {
             colToRemove = colId - 1;
             listToRemove.remove(colToRemove);
         }
-
         // If the list to remove has only one element
         if (listToRemove.isEmpty()) {
             array.remove(listToRemove);
             rowId--;
         }
-
         // Update the colId
         if (colId != 0) {
             colId--;
