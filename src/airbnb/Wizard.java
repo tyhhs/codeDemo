@@ -31,9 +31,9 @@ public class Wizard {
         Set<Integer> visited = new HashSet<>();
         //记录第一个顶点到其他点的最小距离，heap排序
         //用这个priority queue来实现dijkstra算法中找到距离最近的顶点
-        PriorityQueue<Node> queue = new PriorityQueue<>(new Comparator<Node>(){
-            public int compare(Node node1, Node node2){
-                return node1.dist - node2.dist;
+        PriorityQueue<Node> queue = new PriorityQueue<>(new Comparator<Node>() {
+            public int compare(Node n1, Node n2) {
+                return n1.dist - n2.dist;
             }
         });
         //加入第一个顶点
