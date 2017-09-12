@@ -13,17 +13,14 @@ public class FlightTicket {
     /*    int minCostFlight(List<String> flights, String start, String end, int k){
         }*/
     public static void main(String[] args) {
-        String[] input = {"A->B,100", "A->C,100", "C->D,200", "A->D,500", "B->C,300"};
-        FlightSolution sol = new FlightSolution();
-        sol.search(input, 1, 'A', 'D', 4);
+        String[] input = {"A->B,100", "A->C,100", "C->D,200", "A->D,500", "B->C,300","B->E,50","E->D,40","B->A,40"};
+        search(input, 2, 'A', 'D', 5);
     }
-}
 
-class FlightSolution {
-    int min = Integer.MAX_VALUE;
-    String path = "";
+    static int min = Integer.MAX_VALUE;
+    static String path = "";
 
-    public void search(String[] input, int k, char start, char end, int num) {
+    public static void search(String[] input, int k, char start, char end, int num) {
         Map<Character, List<Node>> map = new HashMap<>();
         for (String str : input) {
             char dep = str.charAt(0);
@@ -31,7 +28,7 @@ class FlightSolution {
             String[] strs = str.split(",");
             int cost = Integer.parseInt(strs[1]);
             Node node = new Node(arr, cost);
-            map.putIfAbsent(dep, new ArrayList<Node>());
+            map.putIfAbsent(dep, new ArrayList<>());
             map.get(dep).add(node);
         }
 
@@ -43,18 +40,16 @@ class FlightSolution {
         System.out.println("Minimum cost: " + min + " Path: " + path);
     }
 
-    private void helper(Map<Character, List<Node>> map, int k, char start, char end,
+    private static void helper(Map<Character, List<Node>> map, int k, char start, char end,
                         StringBuilder sb, int counter, int cost, boolean[] visited) {
         if (start == end && counter <= k) {
             if (cost < min) {
                 min = cost;
                 path = sb.toString();
             }
-            sb.setLength(1);
             return;
         }
-        if (cost >= min || counter > k) {
-            sb.setLength(1);
+        if (visited[start - 'A'] || cost >= min || counter > k) {
             return;
         }
         List<Node> list = map.get(start);
@@ -62,16 +57,19 @@ class FlightSolution {
         for (Node n : list) {
             sb.append(n.destination);
             helper(map, k, n.destination, end, sb, counter + 1, cost + n.cost, visited);
+            sb.deleteCharAt(sb.length() - 1);
         }
         visited[start - 'A'] = false;
     }
-}
 
-class Node {
-    char destination;
-    int cost;
-    public Node(char des, int cost) {
-        destination = des;
-        this.cost = cost;
+    static class Node {
+        char destination;
+        int cost;
+        public Node(char des, int cost) {
+            destination = des;
+            this.cost = cost;
+        }
     }
 }
+
+
