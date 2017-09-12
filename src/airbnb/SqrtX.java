@@ -6,7 +6,7 @@ package airbnb;
 public class SqrtX {
     public static void main(String[] args) {
         System.out.println(mySqrt(16));
-        System.out.println(mySqrt(15));
+        System.out.println(mySqrt(45621386));
     }
     public static int mySqrt(int x) {
         //binary Search
@@ -14,7 +14,7 @@ public class SqrtX {
             return 0;
         }
         int left = 1;
-        int right = Integer.MAX_VALUE;
+        int right = x;
         while(true){
             int mid = left + (right - left)/2;
             if(mid > x/mid){

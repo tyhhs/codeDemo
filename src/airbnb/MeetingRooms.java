@@ -28,12 +28,12 @@ public class MeetingRooms {
             return true;
         }
         //sort array by start time
-        Comparator comparator = new Comparator<Interval>(){
-            public int compare(Interval i1, Interval i2){
-                return i1.start - i2.start;
+        Arrays.sort(intervals, new Comparator<Interval>() {
+            @Override
+            public int compare(Interval o1, Interval o2) {
+                return o1.start - o2.start;
             }
-        };
-        Arrays.sort(intervals, comparator);
+        });
         int end = intervals[0].end;
         for(int i = 1; i < intervals.length; i++){
             Interval cur = intervals[i];

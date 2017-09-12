@@ -24,7 +24,8 @@ public class AlienDicBFS {
         //表示图
         Map<Character, Set<Character>> graph = new HashMap<>();
         //表示入度
-        Map<Character, Integer> indegree = new HashMap<>();
+//        Map<Character, Integer> indegree = new HashMap<>();
+        int[] indegree = new int[26];
         StringBuilder sb = new StringBuilder();
         //build graph
         for(int i = 0; i < words.length; i++){
@@ -32,7 +33,6 @@ public class AlienDicBFS {
                 char c = words[i].charAt(j);
                 if (!graph.containsKey(c)) {
                     graph.put(c, new HashSet<>()); // 为了排序结果出现所有字母，对于每个字母，都要初始化，
-                    indegree.put(c, 0);
                 }
             }
             if(i > 0){
@@ -41,8 +41,8 @@ public class AlienDicBFS {
         }
         Queue<Character> queue = new LinkedList<>();
         //get char with 0 indegree
-        for(char c : indegree.keySet()){
-            if(indegree.get(c) == 0){
+        for(char c : graph.keySet()){
+            if(indegree[c - 'a'] == 0){
                 queue.offer(c);
             }
         }
@@ -50,13 +50,13 @@ public class AlienDicBFS {
             char from = queue.poll();
             sb.append(from);
             for(char end : graph.get(from)){
-                if(indegree.get(end) == 1){
-                    indegree.put(end, 0);
+                if(indegree[end - 'a'] == 1){
+                    indegree[end - 'a'] = 0;
                     queue.offer(end);
                 }
             }
         }
-        if(sb.length() == indegree.size()){
+        if(sb.length() == graph.size()){
             return sb.toString();
         }
         else{
@@ -64,7 +64,7 @@ public class AlienDicBFS {
         }
     }
 
-    private static void checkOrder(String word1, String word2, Map<Character, Set<Character>> graph, Map<Character, Integer> indegree){
+    private static void checkOrder(String word1, String word2, Map<Character, Set<Character>> graph, int[] indegree){
         int i = 0;
         while(i < word1.length() && i < word2.length()){
             char c1 = word1.charAt(i);
@@ -73,7 +73,7 @@ public class AlienDicBFS {
                 //get a edge from c1 to c2
                 Set<Character> set = graph.get(c1);
                 if(!set.contains(c2)){//avoid duplicate edge
-                    indegree.put(c2, indegree.get(c2)+1);
+                    indegree[c2 - 'a'] += 1;
                 }
                 graph.get(c1).add(c2);
                 return;

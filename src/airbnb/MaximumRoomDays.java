@@ -19,15 +19,13 @@ public class MaximumRoomDays {
         }
 
         int prev2 = 0;
-        int prev1 = nums[0];
-
-        for (int i = 2; i <= nums.length; i++) {
-            int curr = Math.max(prev1, prev2 + nums[i - 1]);
-
-            prev2 = prev1;
-            prev1 = curr;
+        int prev1 = 0;
+        for (int i : nums) {
+            int temp = prev1;
+            prev1 = prev2 + i;
+            prev2 = Math.max(temp, prev2);
         }
 
-        return prev1;
+        return Math.max(prev1, prev2);
     }
 }

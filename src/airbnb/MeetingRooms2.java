@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 /**
  * Created by tyh on 2017/9/3.
  */
-public class MeetingRomms2 {
+public class MeetingRooms2 {
     /**
      * Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
      * find the minimum number of conference rooms required.
